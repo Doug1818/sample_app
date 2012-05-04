@@ -53,7 +53,10 @@ describe "StaticPages" do
 		click_link "Contact"
 		page.should have_selector 'title', text: full_title('Contact')
 
-		click_link "Sign in"
+		click_link "Home"
+		page.should have_selector 'title', text: full_title('')
+
+		click_link "Sign up now!"
 		page.should have_selector 'title', text: full_title('Sign up')
 	end
 end
