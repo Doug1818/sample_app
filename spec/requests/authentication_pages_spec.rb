@@ -38,6 +38,11 @@ describe "Authentication" do
       describe "followed by signout" do
         before { click_link "Sign out" }
         it { should have_link('Sign in', href: signin_path) }
+
+        it { should_not have_link('Users',    href: users_path) }
+        it { should_not have_link('Profile',  href: user_path(user)) }
+        it { should_not have_link('Settings', href: edit_user_path(user)) }
+        it { should_not have_link('Sign out', href: signout_path) }
       end
 	  end
   end
@@ -106,6 +111,16 @@ describe "Authentication" do
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
         specify { response.should redirect_to(root_path) }
+      end
+    end
+    
+    describe "as admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before { sign_in admin }
+      
+      describe "submitting a self DELETE request to the Users#destroy action" do
+        before { delete user_path(admin) }
+        specify { response.should redirect_to(users_path) }
       end
     end
   end
