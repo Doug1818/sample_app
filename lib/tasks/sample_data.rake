@@ -15,5 +15,18 @@ namespace :db do
 						 password: password,
 						 password_confirmation: password)
 		end
+
+		users = User.all(limit: 6)
+		50.times do
+			content = Faker::Lorem.sentence(5)
+			users.each { |user| user.microposts.create!(content: content) }
+		end
+
+		### Why doesn't this also work? ###
+		#users = User.all(limit: 6)
+		#users.each do
+		#	content = Faker::Lorem.sentence(5)
+		#	50.times { |user| user.microposts.create!(content: content) }
+		#end
 	end
 end
