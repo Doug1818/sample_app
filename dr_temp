@@ -1,0 +1,13 @@
+	<% if current_user?(feed_item.user) %>
+		<%= link_to "delete", feed_item, method: :delete,
+										 confirm: "You sure?",
+										 title: feed_item.content %>
+	<% end %>
+
+
+
+	<% if current_user?(micropost.user) %>
+		<%= link_to "delete", micropost, method: :delete,
+										 confirm: "You sure?",
+										 title: micropost.content %>
+	<% end %>
